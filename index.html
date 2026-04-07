@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Automation Society — Automate The Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   VARIABLES & RESET
+   ══════════════════════════════════════ */
+:root {
+  --black: #0a0a1a;
+  --black-deep: #06060f;
+  --black-deeper: #040410;
+  --white: #ffffff;
+  --cyan: #00e5ff;
+  --cyan-100: #ccfaff;
+  --cyan-200: #80eeff;
+  --cyan-300: #33d6ff;
+  --violet: #8b5cf6;
+  --violet-100: #e0d4fc;
+  --violet-200: #c4b5fd;
+  --violet-300: #a78bfa;
+  --violet-light: #c4b5fd;
+  --neutral: #666;
+  --neutral-light: #9895a1;
+  --neutral-dark: #302d3a;
+  --neutral-darker: #444;
+  --card-bg: rgba(10, 10, 30, 0.65);
+  --card-border: rgba(0, 229, 255, 0.1);
+  --card-border-hover: rgba(0, 229, 255, 0.3);
+  --font-heading: 'Space Grotesk', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 100px;
+  --transition: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cyan) var(--black);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+button { font-family: var(--font-body); cursor: pointer; border: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: all var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(6, 6, 15, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo .logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a:hover { color: var(--cyan); }
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: -1rem;
+  background: var(--black-deep);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  min-width: 220px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.25s;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.nav-dropdown-menu a:hover {
+  background: rgba(0, 229, 255, 0.08);
+  color: var(--cyan);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-ghost {
+  padding: 0.55rem 1.2rem;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  transition: all 0.3s;
+  font-family: var(--font-body);
+}
+
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, var(--cyan), #00b8d4);
+  color: var(--black);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.3);
+}
+
+.btn-primary-lg {
+  padding: 0.85rem 2rem;
+  font-size: 0.95rem;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+
+.btn-outline:hover {
+  border-color: var(--violet);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.btn-violet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, var(--violet), #7c3aed);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+
+.btn-violet:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ══════════════════════════════════════
+   HERO
+   ══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 0 4rem;
+  overflow: hidden;
+}
+
+.hero-tubes-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.hero-glow-1 {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+}
+
+.hero-glow-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 0;
+  left: 5%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%);
+}
+
+.hero-glow-3 {
+  width: 300px;
+  height: 300px;
+  top: 30%;
+  left: 40%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 560px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem 0.35rem 0.35rem;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--cyan);
+  margin-bottom: 1.5rem;
+}
+
+.hero-tag .tag-dot {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-tag .tag-dot svg { width: 12px; height: 12px; color: var(--white); }
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.hero h1 .text-cyan {
+  background: linear-gradient(135deg, var(--cyan), var(--violet-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--violet-200);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-heading);
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-note {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Orbital rings */
+.orbital {
+  position: relative;
+  width: 420px;
+  height: 420px;
+}
+
+.orbital-ring {
+  position: absolute;
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbital-ring-1 { width: 100%; height: 100%; animation: spin-slow 30s linear infinite; }
+.orbital-ring-2 { width: 75%; height: 75%; border-color: rgba(139, 92, 246, 0.2); animation: spin-slow 20s linear infinite reverse; }
+.orbital-ring-3 { width: 50%; height: 50%; border-color: rgba(0, 229, 255, 0.2); }
+
+@keyframes spin-slow {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.orbital-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  background: linear-gradient(135deg, rgba(10,10,30,0.9), rgba(10,10,30,0.7));
+  border: 2px solid rgba(0, 229, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px rgba(0, 229, 255, 0.2), 0 0 120px rgba(139, 92, 246, 0.1), inset 0 0 40px rgba(0, 229, 255, 0.05);
+  overflow: hidden;
+}
+
+.orbital-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.orbital-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: orbit-float 6s ease-in-out infinite;
+}
+
+.orbital-dot-1 {
+  top: 5%;
+  right: 25%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+  animation-delay: 0s;
+}
+
+.orbital-dot-2 {
+  bottom: 15%;
+  left: 10%;
+  background: var(--violet-300);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.5);
+  animation-delay: -2s;
+}
+
+.orbital-dot-3 {
+  top: 40%;
+  right: 3%;
+  background: var(--cyan-300);
+  box-shadow: 0 0 12px rgba(51, 214, 255, 0.5);
+  width: 7px;
+  height: 7px;
+  animation-delay: -4s;
+}
+
+@keyframes orbit-float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(8px, -12px); }
+  50% { transform: translate(-5px, -8px); }
+  75% { transform: translate(10px, 6px); }
+}
+
+/* Dashboard mockup inside orbital */
+.dashboard-preview {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  background: rgba(10, 10, 30, 0.9);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  backdrop-filter: blur(20px);
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.dash-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dash-dot.red { background: #ff5f57; }
+.dash-dot.yellow { background: #febc2e; }
+.dash-dot.gr { background: #28c840; }
+
+.dash-bar-group {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  height: 60px;
+  padding: 0.5rem 0;
+}
+
+.dash-bar {
+  flex: 1;
+  border-radius: 3px;
+  min-height: 10px;
+}
+
+.dash-bar:nth-child(1) { height: 45%; background: var(--violet); }
+.dash-bar:nth-child(2) { height: 70%; background: var(--cyan); }
+.dash-bar:nth-child(3) { height: 55%; background: var(--violet-300); }
+.dash-bar:nth-child(4) { height: 85%; background: var(--cyan-300); }
+.dash-bar:nth-child(5) { height: 40%; background: var(--violet); }
+.dash-bar:nth-child(6) { height: 65%; background: var(--cyan); }
+.dash-bar:nth-child(7) { height: 90%; background: var(--violet-300); }
+.dash-bar:nth-child(8) { height: 50%; background: var(--cyan); }
+
+.dash-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.dash-stat {
+  flex: 1;
+  padding: 0.5rem;
+  background: rgba(0, 229, 255, 0.06);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+.dash-stat-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--cyan);
+}
+
+.dash-stat-label {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+/* ══════════════════════════════════════
+   SECTION SHARED
+   ══════════════════════════════════════ */
+.section {
+  padding: 7rem 0;
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 4rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+}
+
+.section-tag::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════
+   WHY — FEATURES
+   ══════════════════════════════════════ */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.feature-card:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-3px);
+}
+
+.feature-card:hover::after { opacity: 1; }
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.feature-icon.cyan {
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--cyan);
+}
+
+.feature-icon.violet {
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--violet-200);
+}
+
+.feature-icon svg { width: 20px; height: 20px; }
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════
+   METHOD — 3 STEPS
+   ══════════════════════════════════════ */
+.method-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.method-step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.method-step:nth-child(even) {
+  direction: rtl;
+}
+
+.method-step:nth-child(even) > * {
+  direction: ltr;
+}
+
+.step-num {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  letter-spacing: -0.04em;
+}
+
+.step-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.step-content p {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.step-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+
+.step-list li svg {
+  width: 16px;
+  height: 16px;
+  color: var(--cyan);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.step-result {
+  padding: 1rem 1.25rem;
+  background: rgba(0, 229, 255, 0.05);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.9rem;
+  color: var(--cyan-200);
+}
+
+.step-visual {
+  position: relative;
+}
+
+.step-mockup {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mockup-header {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.mockup-line {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.15);
+  margin-bottom: 0.5rem;
+}
+
+.mockup-line:nth-child(2) { width: 80%; }
+.mockup-line:nth-child(3) { width: 60%; }
+.mockup-line:nth-child(4) { width: 90%; background: rgba(0, 229, 255, 0.1); }
+.mockup-line:nth-child(5) { width: 45%; }
+
+.mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.mockup-block {
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.mockup-block.accent { background: rgba(0, 229, 255, 0.06); border-color: rgba(0, 229, 255, 0.1); }
+
+/* ══════════════════════════════════════
+   FOR WHOM
+   ══════════════════════════════════════ */
+.profiles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.profile-card {
+  padding: 2.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card:hover {
+  border-color: var(--card-border-hover);
+}
+
+.profile-label {
+  display: inline-flex;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-heading);
+}
+
+.profile-label.beginner {
+  background: rgba(0, 229, 255, 0.08);
+  color: var(--cyan);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.profile-label.advanced {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--violet-200);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.profile-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.015em;
+}
+
+.profile-card .situation {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+}
+
+.profile-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+}
+
+.profile-benefits li svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.profile-benefits .beginner svg { color: var(--cyan); }
+.profile-benefits .advanced svg { color: var(--violet-200); }
+
+.profile-result {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.profile-result.beginner {
+  background: rgba(0, 229, 255, 0.05);
+  border: 1px solid rgba(0, 229, 255, 0.12);
+  color: var(--cyan-200);
+}
+
+.profile-result.advanced {
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  color: var(--violet-200);
+}
+
+/* ══════════════════════════════════════
+   PRICING
+   ══════════════════════════════════════ */
+#pricing { padding: 7rem 0; }
+
+.pricing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.pricing-toggle span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.3s;
+}
+
+.pricing-toggle span.active { color: var(--white); }
+
+.toggle-switch {
+  width: 48px;
+  height: 26px;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--white);
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s;
+}
+
+.toggle-switch.annual::after { transform: translateX(22px); }
+
+.save-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--cyan);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.pricing-card {
+  padding: 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition);
+  position: relative;
+}
+
+.pricing-card:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-4px);
+}
+
+.pricing-card.featured {
+  border-color: var(--cyan);
+  background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, var(--card-bg) 100%);
+}
+
+.pricing-card.featured::before {
+  content: 'Most Popular';
+  position: absolute;
+  top: -10px;
+  right: 1.5rem;
+  padding: 0.2rem 0.75rem;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+}
+
+.plan-type {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.25rem;
+  font-family: var(--font-heading);
+}
+
+.plan-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-heading);
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.plan-price .amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-family: var(--font-heading);
+}
+
+.plan-price .period {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.plan-price .currency {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+
+.plan-subtitle {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+
+.plan-features li svg {
+  width: 16px;
+  height: 16px;
+  color: var(--cyan);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.plan-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.7rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+
+.plan-btn.cyan {
+  background: linear-gradient(135deg, var(--cyan), #00b8d4);
+  color: var(--black);
+}
+
+.plan-btn.cyan:hover {
+  box-shadow: 0 6px 25px rgba(0, 229, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.plan-btn.outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+}
+
+.plan-btn.outline:hover {
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+/* ══════════════════════════════════════
+   FOUNDER / ABOUT
+   ══════════════════════════════════════ */
+#about {
+  padding: 7rem 0;
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.founder-image {
+  position: relative;
+}
+
+.founder-photo {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1/1;
+  background: linear-gradient(135deg, var(--violet), var(--cyan), var(--black-deep));
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+}
+
+.founder-initials {
+  font-size: 5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+}
+
+.founder-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(10,10,26,0.7));
+}
+
+.founder-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.founder-stat {
+  text-align: center;
+}
+
+.founder-stat .val {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--cyan);
+}
+
+.founder-stat .label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.15rem;
+}
+
+.founder-content h2 {
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+.founder-subtitle {
+  font-size: 1.1rem;
+  color: var(--violet-200);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.founder-text {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.founder-causes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.25rem 0;
+  padding-left: 0;
+}
+
+.founder-causes li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.founder-causes li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+}
+
+.founder-quote {
+  padding: 1.25rem;
+  background: rgba(0, 229, 255, 0.04);
+  border-left: 3px solid var(--cyan);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.95rem;
+  color: var(--cyan-200);
+  font-style: italic;
+  margin-top: 1.5rem;
+}
+
+/* ══════════════════════════════════════
+   TESTIMONIALS
+   ══════════════════════════════════════ */
+.testimonial-highlight {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testimonial-stat {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--cyan);
+  margin-bottom: 0.25rem;
+}
+
+.testimonial-stat-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.testimonial-card {
+  padding: 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-card:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-3px);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 1rem;
+}
+
+.testimonial-stars svg {
+  width: 16px;
+  height: 16px;
+  color: #fbbf24;
+}
+
+.testimonial-text {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid var(--card-border);
+  padding-top: 1rem;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  font-family: var(--font-heading);
+}
+
+.author-avatar.a1 { background: rgba(0, 229, 255, 0.15); color: var(--cyan); }
+.author-avatar.a2 { background: rgba(139, 92, 246, 0.15); color: var(--violet-200); }
+.author-avatar.a3 { background: rgba(0, 229, 255, 0.1); color: var(--cyan-200); }
+
+.author-info h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.author-info span {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ══════════════════════════════════════
+   CLOSING CTA
+   ══════════════════════════════════════ */
+.cta-section {
+  padding: 6rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.08), rgba(139, 92, 246, 0.05), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-content p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* ══════════════════════════════════════
+   FAQ
+   ══════════════════════════════════════ */
+#faq { padding: 7rem 0; }
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.faq-item:hover { border-color: var(--card-border-hover); }
+.faq-item.open { border-color: rgba(0, 229, 255, 0.25); }
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  width: 100%;
+  background: none;
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.5;
+  font-family: var(--font-heading);
+}
+
+.faq-question .faq-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+  color: var(--cyan);
+}
+
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
+}
+
+.faq-answer-inner {
+  padding: 0 1.5rem 1.25rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.75;
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--card-border);
+  padding: 4rem 0 2rem;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-brand .nav-logo {
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.footer-btns {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.footer-col h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-heading);
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col a {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.2s;
+}
+
+.footer-col a:hover { color: var(--cyan); }
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid var(--card-border);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-legal a {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.2s;
+}
+
+.footer-legal a:hover { color: rgba(255,255,255,0.6); }
+
+.footer-copy {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ══════════════════════════════════════
+   DIVIDER LINE
+   ══════════════════════════════════════ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .founder-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .method-step {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .method-step:nth-child(even) { direction: ltr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-right .btn-ghost { display: none; }
+  .mobile-toggle { display: block; }
+
+  .navbar.mobile-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(6, 6, 15, 0.97);
+    backdrop-filter: blur(24px);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--card-border);
+    gap: 1rem;
+  }
+
+  .hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-content { max-width: 100%; }
+  .hero-desc { margin: 0 auto 2rem; }
+  .hero-cta-group { justify-content: center; }
+
+  .orbital { width: 280px; height: 280px; }
+  .dashboard-preview { width: 260px; }
+
+  .features-grid { grid-template-columns: 1fr; }
+  .profiles-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .section { padding: 4rem 0; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2rem; }
+  .container { padding: 0 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <img class="logo-icon" src="brand_assets/tikras.png" alt="AI Automation Society">
+      <span>AI Automation Society</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#why">Why Join</a></li>
+      <li><a href="#method">How It Works</a></li>
+      <li class="nav-dropdown">
+        <a href="#for-who">Who It's For <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;margin-left:2px"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav-dropdown-menu">
+          <a href="#for-who">Beginners</a>
+          <a href="#for-who">Advanced Builders</a>
+        </div>
+      </li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-ghost">Sign In</a>
+      <a href="#" class="btn-primary">Join the Society <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-tubes-canvas" class="hero-tubes-canvas"></canvas>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="tag-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
+        The Future is Automated
+      </div>
+      <h1>Learn, Build & <span class="text-cyan">Automate</span> with AI</h1>
+      <p class="hero-sub">Automate The Future</p>
+      <p class="hero-desc">Join a community of builders, creators, and entrepreneurs who are mastering AI automation to save time, scale faster, and work smarter. No coding experience required.</p>
+      <div class="hero-cta-group">
+        <a href="#" class="btn-primary btn-primary-lg">
+          Join the Society
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+        </a>
+        <a href="#method" class="btn-outline">
+          See How It Works
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+      </div>
+      <span class="hero-note">Free to explore &middot; Premium plans start at $29/mo</span>
+    </div>
+    <div class="hero-visual">
+      <div class="orbital">
+        <div class="orbital-ring orbital-ring-1"></div>
+        <div class="orbital-ring orbital-ring-2"></div>
+        <div class="orbital-ring orbital-ring-3"></div>
+        <div class="orbital-center">
+          <img src="brand_assets/tikras.png" alt="AI Automation Society Logo">
+        </div>
+        <div class="orbital-dot orbital-dot-1"></div>
+        <div class="orbital-dot orbital-dot-2"></div>
+        <div class="orbital-dot orbital-dot-3"></div>
+        <div class="dashboard-preview">
+          <div class="dash-header">
+            <div class="dash-dot red"></div>
+            <div class="dash-dot yellow"></div>
+            <div class="dash-dot gr"></div>
+          </div>
+          <div class="dash-bar-group">
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+            <div class="dash-bar"></div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-stat">
+              <div class="dash-stat-val">2,400+</div>
+              <div class="dash-stat-label">Members</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-val">150+</div>
+              <div class="dash-stat-label">Workflows</div>
+            </div>
+            <div class="dash-stat">
+              <div class="dash-stat-val">40hrs</div>
+              <div class="dash-stat-label">Saved/week</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WHY JOIN ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="why">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Why Join</div>
+      <h2>Everything you need to master AI automation</h2>
+      <p class="section-desc">Whether you're just getting started or scaling complex workflows, the AI Automation Society gives you the tools, community, and guidance to move fast and build real results.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h3>Step-by-Step Tutorials</h3>
+        <p>Hands-on guides for tools like Make, n8n, Zapier, and custom AI agents. Go from zero to automated in hours, not weeks.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.1s">
+        <div class="feature-icon violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Private Community</h3>
+        <p>Connect with like-minded builders, share workflows, get feedback, and collaborate on real-world automation projects.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.2s">
+        <div class="feature-icon cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Live Workshops & Builds</h3>
+        <p>Weekly live sessions where we build automations together in real time. Ask questions, follow along, and ship faster.</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay:0.3s">
+        <div class="feature-icon violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <h3>Pre-Built Templates</h3>
+        <p>Copy and customize ready-made automation workflows for lead gen, content creation, client onboarding, and more.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem" class="reveal">
+      <a href="#" class="btn-primary btn-primary-lg">Join the Society <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ METHOD ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="method">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">How It Works</div>
+      <h2>Three steps to becoming an automation pro</h2>
+      <p class="section-desc">Our structured path takes you from AI-curious to confidently building and deploying your own automations.</p>
+    </div>
+    <div class="method-steps">
+      <!-- Step 01 -->
+      <div class="method-step reveal">
+        <div class="step-content">
+          <div class="step-num">01</div>
+          <h3>Learn the Foundations</h3>
+          <p>Start with the fundamentals of AI automation and choose your tools.</p>
+          <ul class="step-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Understand how AI agents, APIs, and workflows connect</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Pick the right platform for your use case (Make, n8n, Zapier)</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow structured learning paths based on your skill level</li>
+          </ul>
+          <div class="step-result">Result: A clear understanding of the AI automation landscape and your first working workflow.</div>
+        </div>
+        <div class="step-visual">
+          <div class="step-mockup">
+            <div class="mockup-header">
+              <div class="dash-dot red"></div>
+              <div class="dash-dot yellow"></div>
+              <div class="dash-dot gr"></div>
+            </div>
+            <div class="mockup-line" style="width:100%"></div>
+            <div class="mockup-line"></div>
+            <div class="mockup-line"></div>
+            <div class="mockup-grid">
+              <div class="mockup-block"></div>
+              <div class="mockup-block accent"></div>
+              <div class="mockup-block accent"></div>
+              <div class="mockup-block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Step 02 -->
+      <div class="method-step reveal">
+        <div class="step-content">
+          <div class="step-num">02</div>
+          <h3>Build & Automate</h3>
+          <p>Apply what you've learned by building real automations for your business or clients.</p>
+          <ul class="step-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Use our template library to jumpstart any project</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Join live build sessions for hands-on guidance</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Get feedback from the community and mentors</li>
+          </ul>
+          <div class="step-result">Result: Production-ready automations that save you hours every week.</div>
+        </div>
+        <div class="step-visual">
+          <div class="step-mockup">
+            <div class="mockup-header">
+              <div class="dash-dot red"></div>
+              <div class="dash-dot yellow"></div>
+              <div class="dash-dot gr"></div>
+            </div>
+            <div class="mockup-line" style="width:70%"></div>
+            <div class="mockup-line" style="width:90%;background:rgba(0,229,255,0.1)"></div>
+            <div class="mockup-line" style="width:50%"></div>
+            <div class="mockup-grid">
+              <div class="mockup-block accent"></div>
+              <div class="mockup-block"></div>
+              <div class="mockup-block"></div>
+              <div class="mockup-block accent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Step 03 -->
+      <div class="method-step reveal">
+        <div class="step-content">
+          <div class="step-num">03</div>
+          <h3>Scale & Monetize</h3>
+          <p>Turn your automation skills into a competitive advantage or a revenue stream.</p>
+          <ul class="step-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Offer automation services to clients</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Scale your own business with advanced AI workflows</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Stay ahead with cutting-edge tools and strategies</li>
+          </ul>
+          <div class="step-result">Result: A scalable skill set that grows with the AI revolution.</div>
+        </div>
+        <div class="step-visual">
+          <div class="step-mockup">
+            <div class="mockup-header">
+              <div class="dash-dot red"></div>
+              <div class="dash-dot yellow"></div>
+              <div class="dash-dot gr"></div>
+            </div>
+            <div class="mockup-line" style="width:100%;background:rgba(0,229,255,0.1)"></div>
+            <div class="mockup-line" style="width:85%"></div>
+            <div class="mockup-line" style="width:65%"></div>
+            <div class="mockup-line" style="width:95%"></div>
+            <div class="mockup-line" style="width:40%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:4rem" class="reveal">
+      <a href="#" class="btn-primary btn-primary-lg">Start Your Journey <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOR WHOM ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="for-who">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Who It's For</div>
+      <h2>Whether you're starting out or leveling up, there's a place for you</h2>
+    </div>
+    <div class="profiles-grid">
+      <div class="profile-card reveal">
+        <span class="profile-label beginner">Beginners & Entrepreneurs</span>
+        <h3>AI-Curious Builders</h3>
+        <p class="situation">You know AI automation is the future but don't know where to start. You want clear guidance, not overwhelming YouTube rabbit holes.</p>
+        <ul class="profile-benefits">
+          <li class="beginner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Structured learning paths from absolute zero</li>
+          <li class="beginner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>No-code and low-code friendly tutorials</li>
+          <li class="beginner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Supportive community to answer every question</li>
+        </ul>
+        <div class="profile-result beginner">Go from "I've heard of ChatGPT" to building automated workflows in weeks.</div>
+        <a href="#" class="btn-primary">Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+      </div>
+      <div class="profile-card reveal" style="transition-delay:0.1s">
+        <span class="profile-label advanced">Advanced Builders & Agencies</span>
+        <h3>Automation Pros</h3>
+        <p class="situation">You're already building automations but want access to advanced strategies, client-ready templates, and a network of top builders.</p>
+        <ul class="profile-benefits">
+          <li class="advanced"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Advanced workflows: AI agents, multi-step pipelines, API integrations</li>
+          <li class="advanced"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>White-label templates for client delivery</li>
+          <li class="advanced"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Peer network of agency owners and freelancers</li>
+        </ul>
+        <div class="profile-result advanced">Level up your services, close bigger deals, and stay at the cutting edge of AI automation.</div>
+        <a href="#" class="btn-violet">Level Up <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Pricing</div>
+      <h2>Simple plans that scale with your ambition</h2>
+    </div>
+    <div class="pricing-toggle reveal">
+      <span class="active" id="toggleMonthly">Monthly</span>
+      <div class="toggle-switch" id="pricingToggle"></div>
+      <span id="toggleAnnual">Annual</span>
+      <span class="save-badge">Save 20%</span>
+    </div>
+    <div class="pricing-grid reveal">
+      <!-- Explorer -->
+      <div class="pricing-card">
+        <div class="plan-type">Getting Started</div>
+        <div class="plan-name">Explorer</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="0" data-annual="0">0</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-subtitle">Free forever</p>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Access to community forums</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>5 starter templates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Beginner learning path</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Weekly newsletter</li>
+        </ul>
+        <a href="#" class="plan-btn outline">Get Started Free</a>
+      </div>
+      <!-- Builder -->
+      <div class="pricing-card featured">
+        <div class="plan-type">For Builders</div>
+        <div class="plan-name">Builder</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="29" data-annual="23">29</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-subtitle">Everything you need to automate</p>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Explorer</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full template library (150+)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Live weekly workshops</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Private Discord channels</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>All learning paths (beginner to advanced)</li>
+        </ul>
+        <a href="#" class="plan-btn cyan">Join as Builder</a>
+      </div>
+      <!-- Pro -->
+      <div class="pricing-card">
+        <div class="plan-type">For Agencies</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="79" data-annual="63">79</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="plan-subtitle">Scale your automation business</p>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Everything in Builder</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>White-label client templates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>1-on-1 monthly strategy call</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Early access to new tools & content</li>
+        </ul>
+        <a href="#" class="plan-btn outline">Go Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="about">
+  <div class="container">
+    <div class="founder-grid reveal">
+      <div class="founder-image">
+        <div class="founder-photo">
+          <span class="founder-initials">AAS</span>
+        </div>
+        <div class="founder-stats">
+          <div class="founder-stat">
+            <div class="val">2,400+</div>
+            <div class="label">Community Members</div>
+          </div>
+          <div class="founder-stat">
+            <div class="val">150+</div>
+            <div class="label">Templates</div>
+          </div>
+          <div class="founder-stat">
+            <div class="val">50+</div>
+            <div class="label">Countries</div>
+          </div>
+        </div>
+      </div>
+      <div class="founder-content">
+        <div class="section-tag">About Us</div>
+        <h2>Built by builders, for builders</h2>
+        <p class="founder-subtitle">A community born from the AI automation revolution</p>
+        <p class="founder-text">The AI Automation Society started with a simple observation: the tools to automate nearly anything already exist, but most people don't know where to start or how to use them effectively.</p>
+        <p class="founder-text">We believe the next wave of innovation won't come from big tech alone. It will come from:</p>
+        <ul class="founder-causes">
+          <li>Entrepreneurs who automate their operations</li>
+          <li>Freelancers who offer automation as a service</li>
+          <li>Creators who use AI to produce at scale</li>
+          <li>Teams who eliminate busywork with smart workflows</li>
+        </ul>
+        <div class="founder-quote">"The best time to start automating was yesterday. The second best time is right now. We're here to help you get started."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Testimonials</div>
+      <h2>Hear from our members</h2>
+    </div>
+    <div class="testimonial-highlight reveal">
+      <div class="testimonial-stat">40+ hours saved per week</div>
+      <div class="testimonial-stat-desc">Average time saved by members within 90 days of joining</div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"I automated my entire client onboarding process in one weekend using a template from the library. What used to take 3 hours per client now takes 5 minutes."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar a1">JM</div>
+          <div class="author-info">
+            <h4>Jake Morrison</h4>
+            <span>Marketing Agency Owner</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal" style="transition-delay:0.1s">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"The live workshops are incredible. I went from zero automation knowledge to selling AI workflow packages to clients within two months. The community support made all the difference."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar a2">SP</div>
+          <div class="author-info">
+            <h4>Sarah Park</h4>
+            <span>Freelance Automation Consultant</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal" style="transition-delay:0.2s">
+        <div class="testimonial-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testimonial-text">"I replaced 3 full-time hires with automations I built here. Not to cut jobs, but to reallocate my team to creative work. ROI was insane. Best $29/mo I've ever spent."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar a3">DR</div>
+          <div class="author-info">
+            <h4>Daniel Reeves</h4>
+            <span>E-commerce Founder</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CLOSING CTA ═══════════════ -->
+<div class="section-divider"></div>
+<section class="cta-section">
+  <div class="cta-content reveal">
+    <h2>Ready to automate the future?</h2>
+    <p>Join thousands of builders who are using AI automation to work smarter, scale faster, and build the businesses of tomorrow. Your first automation is just a click away.</p>
+    <a href="#" class="btn-primary btn-primary-lg">Join the AI Automation Society <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<div class="section-divider"></div>
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">FAQ</div>
+      <h2>Got questions? We've got answers.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Do I need coding experience to get started?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Not at all! Most of our tutorials and templates use no-code platforms like Make, Zapier, and n8n. We have learning paths specifically designed for non-technical builders. If you do know how to code, we have advanced content for you too.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.05s">
+        <button class="faq-question">
+          What tools and platforms do you cover?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We cover the major automation platforms including Make (Integromat), n8n, Zapier, as well as AI tools like ChatGPT, Claude, and custom AI agents. We also teach API integrations, webhook setups, and advanced workflow design patterns.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.1s">
+        <button class="faq-question">
+          How quickly can I start building automations?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most members build their first automation within the first week. Our template library lets you copy and customize proven workflows immediately. The beginner learning path is designed to get you productive fast.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.15s">
+        <button class="faq-question">
+          Can I use the templates for my clients?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Absolutely! Builder and Pro members can use all templates for client work. Pro members also get access to white-label versions that you can brand as your own when delivering to clients.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.2s">
+        <button class="faq-question">
+          What if I need help with a specific automation?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Post in the community and get help from fellow builders and mentors. Our live workshops also have dedicated Q&A time. Pro members get priority support and monthly 1-on-1 strategy calls.</div>
+        </div>
+      </div>
+      <div class="faq-item reveal" style="transition-delay:0.25s">
+        <button class="faq-question">
+          Can I cancel my subscription anytime?
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes, cancel anytime with no questions asked. You'll keep access until the end of your billing period. We're confident you'll stay because the value speaks for itself.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <img class="logo-icon" src="brand_assets/tikras.png" alt="AI Automation Society">
+          <span>AI Automation Society</span>
+        </a>
+        <p>The community for builders who automate the future with AI. Learn, build, and scale your automations with us.</p>
+        <div class="footer-btns">
+          <a href="#" class="btn-primary">Join the Society</a>
+          <a href="#" class="btn-outline">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#why">Why Join</a></li>
+          <li><a href="#method">How It Works</a></li>
+          <li><a href="#for-who">Who It's For</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Discord Community</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+      <div class="footer-copy">&copy; 2025 AI Automation Society. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════
+// SCROLL: NAV BACKGROUND
+// ══════════════════════════════════════
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ══════════════════════════════════════
+// MOBILE MENU
+// ══════════════════════════════════════
+document.getElementById('mobileToggle').addEventListener('click', () => {
+  navbar.classList.toggle('mobile-open');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => navbar.classList.remove('mobile-open'));
+});
+
+// ══════════════════════════════════════
+// INTERSECTION OBSERVER — REVEAL
+// ══════════════════════════════════════
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ══════════════════════════════════════
+// PRICING TOGGLE
+// ══════════════════════════════════════
+const toggle = document.getElementById('pricingToggle');
+const monthlyLabel = document.getElementById('toggleMonthly');
+const annualLabel = document.getElementById('toggleAnnual');
+let isAnnual = false;
+
+toggle.addEventListener('click', () => {
+  isAnnual = !isAnnual;
+  toggle.classList.toggle('annual', isAnnual);
+  monthlyLabel.classList.toggle('active', !isAnnual);
+  annualLabel.classList.toggle('active', isAnnual);
+
+  document.querySelectorAll('.plan-price .amount').forEach(el => {
+    el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+  });
+});
+
+// ══════════════════════════════════════
+// HERO TUBES CURSOR BACKGROUND
+// ══════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('hero-tubes-canvas');
+  if (!canvas) return;
+
+  function randomColors(count) {
+    return new Array(count).fill(0).map(function() {
+      return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    });
+  }
+
+  setTimeout(function() {
+    import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js')
+      .then(function(module) {
+        var TubesCursor = module.default;
+        if (!canvas) return;
+        var app = TubesCursor(canvas, {
+          tubes: {
+            colors: ['#5e72e4', '#8965e0', '#f5365c'],
+            lights: {
+              intensity: 200,
+              colors: ['#21d4fd', '#b721ff', '#f4d03f', '#11cdef']
+            }
+          }
+        });
+
+        // Click hero section to randomize colors
+        var heroSection = document.getElementById('hero');
+        if (heroSection) {
+          heroSection.addEventListener('click', function() {
+            if (app && app.tubes) {
+              app.tubes.setColors(randomColors(3));
+              app.tubes.setLightsColors(randomColors(4));
+            }
+          });
+        }
+      })
+      .catch(function(err) {
+        console.error('Failed to load TubesCursor module:', err);
+      });
+  }, 100);
+})();
+
+// ══════════════════════════════════════
+// FAQ ACCORDION
+// ══════════════════════════════════════
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-answer').style.maxHeight = null;
+    });
+
+    // Open clicked (if wasn't already open)
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+</body>
+</html>
